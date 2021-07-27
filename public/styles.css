@@ -1,0 +1,107 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    font-family: Gotham Rounded, sans-serif;
+}
+
+:root {
+    --fill: 1;
+    --bg-pomodoro: rgb(219, 82, 77);
+    --bg-short-break: rgb(70, 142, 145);
+    --bg-long-break: rgb(0, 110, 255);
+}
+  
+body {
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.pomodoro {
+    --bg: var(--bg-pomodoro)
+}
+
+.shortBreak {
+    --bg: var(--bg-short-break)
+}
+
+.longBreak {
+    --bg: var(--bg-long-break)
+}
+
+section {
+    text-align: center;
+    padding: 2em 3em;
+    border-radius: 1em;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+  
+.clock {
+    /* width: 500px;
+    height: 100px; */
+    /* border: 3px solid white; */
+    border-radius: 500px;
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.fill {
+    position: absolute;
+    width: 100%;
+    height:  calc(100% * var(--fill));
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: height 1s linear;
+}
+
+.fill.green {
+background: green;
+}
+
+.fill.orange {
+    background: orange;
+}
+
+.fill.red {
+    background: red;
+}
+  
+div > div > div {
+    display: inline-block;
+    font-size: 5em;
+}
+
+input {
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+input:checked + label {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+label {
+    padding: 0.3em 0.6em;
+    border-radius: 0.4em;
+    cursor: pointer;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* remove this */
+.buttons:last-of-type {
+    margin-top: 1em;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Digital clock</title>
+</head>
+
+<body class="pomodoro">
+    <section>
+        <div class="buttons">
+            <input type="radio" name="pomodoroStatus" id="pomodoro" checked>
+            <label for="pomodoro">Pomodoro</label>
+            <input type="radio" name="pomodoroStatus" id="shortBreak">
+            <label for="shortBreak">Short Break</label>
+            <input type="radio" name="pomodoroStatus" id="longBreak">
+            <label for="longBreak">Long Break</label>
+        </div>
+        <div class="clock">
+            <div>
+                <div data-time></div>
+                <div class="fill green"></div>
+            </div>
+        </div>
+
+        <!-- change this -->
+        <div class="buttons">
+            <button onclick="startTimer()">Start</button>
+            <button onclick="timesUp()">Stop</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
