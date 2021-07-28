@@ -3,15 +3,40 @@ const body = document.querySelector("body");
 const clock = document.querySelector('[data-time]');
 const fill = document.querySelector(".fill");
 
-document.querySelector("input[id=pomodoro]").addEventListener("change", pomodoroSettings)
-document.querySelector("input[id=shortBreak]").addEventListener("change", shortBreakSettings)
-document.querySelector("input[id=longBreak]").addEventListener("change", longBreakSettings)
+const pomodoro = document.querySelector("input[id=pomodoro]");
+pomodoro.addEventListener("change", pomodoroSettings);
+const shortBreak = document.querySelector("input[id=shortBreak]");
+shortBreak.addEventListener("change", shortBreakSettings);
+const longBreak = document.querySelector("input[id=longBreak]");
+longBreak.addEventListener("change", longBreakSettings);
 
-const TIME_LIMIT = 25 * 60;
-let timePassed = 0;
-let timeLeft = TIME_LIMIT;
+class PomodoroCounter {
+    constructor() {
+        const pomodoroCallback = changeRadioCallback(pomodoroSettings, pomodoro);
+        const shortBreakCallback = changeRadioCallback(shortBreakSettings, shortBreak);
+        const longBreakCallback = changeRadioCallback(longBreakSettings, longBreak);
+        this.index = -1
+        this.pomodoroSteps = [pomodoroCallback, shortBreakCallback, pomodoroCallback, shortBreakCallback, pomodoroCallback, shortBreakCallback, pomodoroCallback, longBreakCallback];
+    }
+
+    #incrementIndex() {
+        this.index++;
+        if (this.index === this.pomodoroSteps.length) {
+            this.index = 0;
+        }
+    }
+
+    get nextStep() {
+        this.#incrementIndex();
+        return this.pomodoroSteps[this.index];
+    }
+}
+
+let TIME_LIMIT;
+let timePassed;
+let timeLeft;
 let timerInterval = null;
-// let remainingPathColor = COLOR_CODES.info.color;
+const steps = new PomodoroCounter();
 
 const TIMER_COLORS = {
     info: {
@@ -31,21 +56,36 @@ function pomodoroSettings() {
     body.classList.remove("shortBreak");
     body.classList.remove("longBreak");
     body.classList.add("pomodoro");
-    console.log("Pomodoro: 25 min")
+    setupTimer(25)
 }
 
 function shortBreakSettings() {
     body.classList.remove("pomodoro");
     body.classList.remove("longBreak");
     body.classList.add("shortBreak");
-    console.log("Short break: 5 min")
+    setupTimer(5)
 }
 
 function longBreakSettings() {
     body.classList.remove("pomodoro");
     body.classList.remove("shortBreak");
     body.classList.add("longBreak");
-    console.log("Long break: 15 min")
+    setupTimer(15)
+}
+
+function changeRadioCallback(settings, button) {
+    return () => {
+        settings()
+        button.checked = true;
+    }
+}
+
+function setupTimer(mins) {
+    TIME_LIMIT = mins;
+    timePassed = 0;
+    timeLeft = TIME_LIMIT;
+    timesUp();
+    setClock();
 }
 
 function startTimer() {
@@ -58,6 +98,7 @@ function startTimer() {
 
         if (timeLeft === 0) {
             timesUp();
+            steps.nextStep();
         }
     }, 1000);
 }
@@ -97,5 +138,8 @@ function setFill() {
     root.style.setProperty("--fill", timeFraction);
 }
 
-setClock();
+steps.nextStep();
 
+// TODO
+// Start stop buttons
+// colors fill animation

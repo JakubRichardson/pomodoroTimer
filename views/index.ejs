@@ -12,7 +12,7 @@
 <body class="pomodoro">
     <section>
         <div class="buttons">
-            <input type="radio" name="pomodoroStatus" id="pomodoro" checked>
+            <input type="radio" name="pomodoroStatus" id="pomodoro">
             <label for="pomodoro">Pomodoro</label>
             <input type="radio" name="pomodoroStatus" id="shortBreak">
             <label for="shortBreak">Short Break</label>
@@ -30,6 +30,7 @@
         <div class="buttons">
             <button onclick="startTimer()">Start</button>
             <button onclick="timesUp()">Stop</button>
+            <button onclick="steps.nextStep()">Skip</button>
         </div>
     </section>
 
