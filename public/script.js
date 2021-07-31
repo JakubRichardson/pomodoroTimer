@@ -10,6 +10,8 @@ shortBreak.addEventListener("change", shortBreakSettings);
 const longBreak = document.querySelector("input[id=longBreak]");
 longBreak.addEventListener("change", longBreakSettings);
 
+const startButton = document.querySelector(".start-stop");
+
 class PomodoroCounter {
     constructor() {
         const pomodoroCallback = changeRadioCallback(pomodoroSettings, pomodoro);
@@ -84,7 +86,7 @@ function setupTimer(mins) {
     TIME_LIMIT = mins;
     timePassed = 0;
     timeLeft = TIME_LIMIT;
-    timesUp();
+    clearInterval(timerInterval);
     setClock();
 }
 
@@ -97,14 +99,28 @@ function startTimer() {
         setFillColor(timeLeft);
 
         if (timeLeft === 0) {
-            timesUp();
+            stop();
+            resetFill();
             steps.nextStep();
         }
     }, 1000);
 }
 
-function timesUp() {
+function start() {
+    startTimer();
+    startButton.textContent = "Stop";
+    startButton.onclick = stop;
+}
+
+function stop() {
     clearInterval(timerInterval);
+    startButton.textContent = "Start";
+    startButton.onclick = start;
+}
+
+function skip() {
+    stop();
+    steps.nextStep();
 }
 
 function formatTime(time) {
@@ -135,11 +151,20 @@ function setFillColor(timeLeft) {
 
 function setFill() {
     const timeFraction = timeLeft / TIME_LIMIT;
-    root.style.setProperty("--fill", timeFraction);
+    root.style.setProperty("--fill", timeFraction - (1 / TIME_LIMIT) * (1 - timeFraction));
+}
+
+function resetFill() {
+    const { alert, warning, info } = TIMER_COLORS;
+    root.style.setProperty("--fill", 1);
+    fill.classList.remove(warning.color);
+    fill.classList.remove(alert.color);
+    fill.classList.add(info.color);
 }
 
 steps.nextStep();
 
 // TODO
-// Start stop buttons
-// colors fill animation
+// 1. change start stop button color when tab change
+// 2. change skip button
+// 3. change hat happens after changed tab timer ends

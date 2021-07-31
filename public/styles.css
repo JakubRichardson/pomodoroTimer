@@ -32,6 +32,7 @@ body {
 }
 
 section {
+    /* font-size: 2rem; */
     text-align: center;
     padding: 2em 3em;
     border-radius: 1em;
@@ -105,3 +106,23 @@ label {
 .buttons:last-of-type {
     margin-top: 1em;
 }
+
+.start-stop {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: white;
+    color: rgb(219, 82, 77);
+    border: none;
+    border-radius: 0.25em;
+    width: 8em;
+    height: 2.25em;
+    cursor: pointer;
+    box-shadow: rgb(235 235 235) 0px 6px 0px;
+}
+
+.small {
+    font-size: 0.75em;
+    margin: 1em;
+}
+

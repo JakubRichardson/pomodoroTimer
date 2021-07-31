@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Digital clock</title>
+    <title>Pomodoro timer</title>
 </head>
 
 <body class="pomodoro">
@@ -25,12 +25,10 @@
                 <div class="fill green"></div>
             </div>
         </div>
-
-        <!-- change this -->
         <div class="buttons">
-            <button onclick="startTimer()">Start</button>
-            <button onclick="timesUp()">Stop</button>
-            <button onclick="steps.nextStep()">Skip</button>
+            <button onclick="start()" class="start-stop">Start</button>
+            <!-- change this -->
+            <button onclick="skip()" class="start-stop small">Skip</button>
         </div>
     </section>
 
