@@ -4,19 +4,17 @@ const clock = document.querySelector('[data-time]');
 const fill = document.querySelector(".fill");
 
 const pomodoro = document.querySelector("input[id=pomodoro]");
-pomodoro.addEventListener("change", pomodoroSettings);
 const shortBreak = document.querySelector("input[id=shortBreak]");
-shortBreak.addEventListener("change", shortBreakSettings);
 const longBreak = document.querySelector("input[id=longBreak]");
-longBreak.addEventListener("change", longBreakSettings);
 
 const startButton = document.querySelector(".start-stop");
+const skipButton = document.querySelector(".skipButton");
 
 class PomodoroCounter {
     constructor() {
-        const pomodoroCallback = changeRadioCallback(pomodoroSettings, pomodoro);
-        const shortBreakCallback = changeRadioCallback(shortBreakSettings, shortBreak);
-        const longBreakCallback = changeRadioCallback(longBreakSettings, longBreak);
+        const pomodoroCallback = nextStepCallback(pomodoroSettings, pomodoro);
+        const shortBreakCallback = nextStepCallback(shortBreakSettings, shortBreak);
+        const longBreakCallback = nextStepCallback(longBreakSettings, longBreak);
         this.index = -1
         this.pomodoroSteps = [pomodoroCallback, shortBreakCallback, pomodoroCallback, shortBreakCallback, pomodoroCallback, shortBreakCallback, pomodoroCallback, longBreakCallback];
     }
@@ -32,6 +30,18 @@ class PomodoroCounter {
         this.#incrementIndex();
         return this.pomodoroSteps[this.index];
     }
+
+    goToPomodoro = () => {
+        this.index = 0;
+    }
+
+    gotToShortBreak = () => {
+        this.index = 1;
+    }
+
+    goToLongBreak = () => {
+        this.index = 7;
+    }
 }
 
 let TIME_LIMIT;
@@ -39,6 +49,9 @@ let timePassed;
 let timeLeft;
 let timerInterval = null;
 const steps = new PomodoroCounter();
+pomodoro.addEventListener("change", changeRadioCallback(pomodoroSettings, steps.goToPomodoro));
+shortBreak.addEventListener("change", changeRadioCallback(shortBreakSettings, steps.gotToShortBreak));
+longBreak.addEventListener("change", changeRadioCallback(longBreakSettings, steps.goToLongBreak));
 
 const TIMER_COLORS = {
     info: {
@@ -58,41 +71,50 @@ function pomodoroSettings() {
     body.classList.remove("shortBreak");
     body.classList.remove("longBreak");
     body.classList.add("pomodoro");
-    setupTimer(25)
+    setupTimer(25);
 }
 
 function shortBreakSettings() {
     body.classList.remove("pomodoro");
     body.classList.remove("longBreak");
     body.classList.add("shortBreak");
-    setupTimer(5)
+    setupTimer(5);
 }
 
 function longBreakSettings() {
     body.classList.remove("pomodoro");
     body.classList.remove("shortBreak");
     body.classList.add("longBreak");
-    setupTimer(15)
+    setupTimer(15);
 }
 
-function changeRadioCallback(settings, button) {
+function nextStepCallback(settings, button) {
     return () => {
-        settings()
+        settings();
         button.checked = true;
     }
 }
 
+function changeRadioCallback(settings, goTo) {
+    return () => {
+        stop();
+        settings();
+        goTo();
+    }
+}
+
 function setupTimer(mins) {
-    TIME_LIMIT = mins;
+    // clearInterval(timerInterval);
+    resetFill();
+    TIME_LIMIT = mins * 60;
     timePassed = 0;
     timeLeft = TIME_LIMIT;
-    clearInterval(timerInterval);
     setClock();
 }
 
 function startTimer() {
     timerInterval = setInterval(() => {
-        timePassed = timePassed += 1;
+        timePassed++;
         timeLeft = TIME_LIMIT - timePassed;
         setClock();
         setFill();
@@ -108,12 +130,14 @@ function startTimer() {
 
 function start() {
     startTimer();
+    skipButton.classList.remove("hidden");
     startButton.textContent = "Stop";
     startButton.onclick = stop;
 }
 
 function stop() {
     clearInterval(timerInterval);
+    skipButton.classList.add("hidden");
     startButton.textContent = "Start";
     startButton.onclick = start;
 }
@@ -164,7 +188,3 @@ function resetFill() {
 
 steps.nextStep();
 
-// TODO
-// 1. change start stop button color when tab change
-// 2. change skip button
-// 3. change hat happens after changed tab timer ends

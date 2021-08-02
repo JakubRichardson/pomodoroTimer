@@ -64,7 +64,7 @@ section {
 }
 
 .fill.green {
-background: green;
+    background: green;
 }
 
 .fill.orange {
@@ -102,27 +102,51 @@ label {
     align-items: center;
 }
 
-/* remove this */
-.buttons:last-of-type {
-    margin-top: 1em;
-}
-
 .start-stop {
     font-size: 1.5em;
     text-transform: uppercase;
     font-weight: bold;
     background: white;
-    color: rgb(219, 82, 77);
+    color: var(--bg);
     border: none;
     border-radius: 0.25em;
     width: 8em;
     height: 2.25em;
     cursor: pointer;
-    box-shadow: rgb(235 235 235) 0px 6px 0px;
+    /* box-shadow: rgb(235 235 235) 0px 6px 0px; */
 }
 
-.small {
-    font-size: 0.75em;
-    margin: 1em;
+.start-stop:hover {
+    opacity: 0.9;
+}
+
+.timerFuncButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin-top: 1em;
+}
+
+.skipButton {
+    position: absolute;
+    top: 0.1em;
+    right: 0;
+    font-size: 2em;
+    padding: 0;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.skipButton:hover {
+    opacity: 0.9;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
