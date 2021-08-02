@@ -9,8 +9,12 @@
     --bg-short-break: rgb(70, 142, 145);
     --bg-long-break: rgb(0, 110, 255);
 }
-  
+
 body {
+    margin: 0;
+}
+  
+main {
     background: var(--bg);
     display: flex;
     align-items: center;
@@ -31,7 +35,7 @@ body {
     --bg: var(--bg-long-break)
 }
 
-section {
+.timer {
     /* font-size: 2rem; */
     text-align: center;
     padding: 2em 3em;
@@ -41,16 +45,17 @@ section {
 }
   
 .clock {
-    /* width: 500px;
-    height: 100px; */
-    /* border: 3px solid white; */
     border-radius: 500px;
     margin-top: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     overflow: hidden;
+}
+
+.clock > div:first-of-type {
+    display: inline-block;
+    font-size: 5em;
+    position: inherit;
+    z-index: 1;
 }
 
 .fill {
@@ -59,7 +64,6 @@ section {
     height:  calc(100% * var(--fill));
     left: 0;
     bottom: 0;
-    z-index: -1;
     transition: height 1s linear;
 }
 
@@ -73,11 +77,6 @@ section {
 
 .fill.red {
     background: red;
-}
-  
-div > div > div {
-    display: inline-block;
-    font-size: 5em;
 }
 
 input {

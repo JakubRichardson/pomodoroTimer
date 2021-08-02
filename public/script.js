@@ -1,5 +1,5 @@
 const root = document.documentElement;
-const body = document.querySelector("body");
+const main = document.querySelector("main");
 const clock = document.querySelector('[data-time]');
 const fill = document.querySelector(".fill");
 
@@ -68,23 +68,23 @@ const TIMER_COLORS = {
 };
 
 function pomodoroSettings() {
-    body.classList.remove("shortBreak");
-    body.classList.remove("longBreak");
-    body.classList.add("pomodoro");
+    main.classList.remove("shortBreak");
+    main.classList.remove("longBreak");
+    main.classList.add("pomodoro");
     setupTimer(25);
 }
 
 function shortBreakSettings() {
-    body.classList.remove("pomodoro");
-    body.classList.remove("longBreak");
-    body.classList.add("shortBreak");
+    main.classList.remove("pomodoro");
+    main.classList.remove("longBreak");
+    main.classList.add("shortBreak");
     setupTimer(5);
 }
 
 function longBreakSettings() {
-    body.classList.remove("pomodoro");
-    body.classList.remove("shortBreak");
-    body.classList.add("longBreak");
+    main.classList.remove("pomodoro");
+    main.classList.remove("shortBreak");
+    main.classList.add("longBreak");
     setupTimer(15);
 }
 
