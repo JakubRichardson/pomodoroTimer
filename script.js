@@ -1,5 +1,5 @@
 const root = document.documentElement;
-const main = document.querySelector("main");
+const main = document.querySelector(".main-content");
 const clock = document.querySelector('[data-time]');
 const fill = document.querySelector(".fill");
 
@@ -8,7 +8,7 @@ const shortBreak = document.querySelector("input[id=shortBreak]");
 const longBreak = document.querySelector("input[id=longBreak]");
 
 const startButton = document.querySelector(".start-stop");
-const skipButton = document.querySelector(".skipButton");
+const skipButton = document.querySelector(".skip-button");
 
 class PomodoroCounter {
     constructor() {
@@ -68,23 +68,23 @@ const TIMER_COLORS = {
 };
 
 function pomodoroSettings() {
-    main.classList.remove("shortBreak");
-    main.classList.remove("longBreak");
+    main.classList.remove("short-break");
+    main.classList.remove("long-break");
     main.classList.add("pomodoro");
     setupTimer(25);
 }
 
 function shortBreakSettings() {
     main.classList.remove("pomodoro");
-    main.classList.remove("longBreak");
-    main.classList.add("shortBreak");
+    main.classList.remove("long-break");
+    main.classList.add("short-break");
     setupTimer(5);
 }
 
 function longBreakSettings() {
     main.classList.remove("pomodoro");
-    main.classList.remove("shortBreak");
-    main.classList.add("longBreak");
+    main.classList.remove("short-break");
+    main.classList.add("long-break");
     setupTimer(15);
 }
 

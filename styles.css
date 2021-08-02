@@ -14,29 +14,50 @@ body {
     margin: 0;
 }
   
-main {
+div.main-content {
     background: var(--bg);
+    margin: auto;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    width: 50%;
+    margin: 0.5em auto 2em auto;
+    border-bottom: 1px solid rgba(0, 0, 0,0.1);
+}
+
+header h1 a{
+    text-decoration: none;
+    font-weight: lighter;
+    color: white;
+}
+
+header h1{
+    margin: 0.3em 0;
+}
+
+main {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    overflow: hidden;
 }
 
 .pomodoro {
     --bg: var(--bg-pomodoro)
 }
 
-.shortBreak {
+.short-break {
     --bg: var(--bg-short-break)
 }
 
-.longBreak {
+.long-break {
     --bg: var(--bg-long-break)
 }
 
 .timer {
     /* font-size: 2rem; */
+    display: inline-block;
     text-align: center;
     padding: 2em 3em;
     border-radius: 1em;
@@ -119,7 +140,7 @@ label {
     opacity: 0.9;
 }
 
-.timerFuncButtons {
+.timer-func-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,7 +149,7 @@ label {
     margin-top: 1em;
 }
 
-.skipButton {
+.skip-button {
     position: absolute;
     top: 0.1em;
     right: 0;
@@ -140,12 +161,20 @@ label {
     cursor: pointer;
 }
 
-.skipButton:hover {
+.skip-button:hover {
     opacity: 0.9;
 }
 
 .hidden {
-    opacity: 0;
-    pointer-events: none;
+    display: none;
 }
 
+@media (max-width: 480px) {
+    header {
+        width: 80%;
+    }
+
+    .timer {
+        padding: 2em 1em;
+    }
+}

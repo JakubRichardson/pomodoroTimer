@@ -10,26 +10,31 @@
 </head>
 
 <body>
-    <main class="pomodoro">
-        <div class="timer">
-            <div class="buttons">
-                <input type="radio" name="pomodoroStatus" id="pomodoro">
-                <label for="pomodoro">Pomodoro</label>
-                <input type="radio" name="pomodoroStatus" id="shortBreak">
-                <label for="shortBreak">Short Break</label>
-                <input type="radio" name="pomodoroStatus" id="longBreak">
-                <label for="longBreak">Long Break</label>
+    <div class=" main-content pomodoro">
+        <header>
+            <h1><a href="#">Pomodoro</a></h1>
+        </header>
+        <main>
+            <div class="timer">
+                <div class="buttons">
+                    <input type="radio" name="pomodoroStatus" id="pomodoro">
+                    <label for="pomodoro">Pomodoro</label>
+                    <input type="radio" name="pomodoroStatus" id="shortBreak">
+                    <label for="shortBreak">Short Break</label>
+                    <input type="radio" name="pomodoroStatus" id="longBreak">
+                    <label for="longBreak">Long Break</label>
+                </div>
+                <div class="clock">
+                    <div data-time></div>
+                    <div class="fill green"></div>
+                </div>
+                <div class="timer-func-buttons">
+                    <button onclick="start()" class="start-stop">Start</button>
+                    <button class="skip-button hidden" onclick="skip()">🡆</button>
+                </div>
             </div>
-            <div class="clock">
-                <div data-time></div>
-                <div class="fill green"></div>
-            </div>
-            <div class="timerFuncButtons">
-                <button onclick="start()" class="start-stop">Start</button>
-                <button class="skipButton hidden" onclick="skip()">🡆</button>
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
