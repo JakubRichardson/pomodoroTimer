@@ -44,7 +44,7 @@ class PomodoroCounter {
     }
 }
 
-let TIME_LIMIT;
+let timeLength;
 let timePassed;
 let timeLeft;
 let timerInterval = null;
@@ -106,16 +106,16 @@ function changeRadioCallback(settings, goTo) {
 function setupTimer(mins) {
     // clearInterval(timerInterval);
     resetFill();
-    TIME_LIMIT = mins * 60;
+    timeLength = mins * 60;
     timePassed = 0;
-    timeLeft = TIME_LIMIT;
+    timeLeft = timeLength;
     setClock();
 }
 
 function startTimer() {
     timerInterval = setInterval(() => {
         timePassed++;
-        timeLeft = TIME_LIMIT - timePassed;
+        timeLeft = timeLength - timePassed;
         setClock();
         setFill();
         setFillColor(timeLeft);
@@ -164,18 +164,18 @@ function setClock() {
 
 function setFillColor(timeLeft) {
     const { alert, warning, info } = TIMER_COLORS;
-    if (timeLeft <= TIME_LIMIT * alert.threshold) {
+    if (timeLeft <= timeLength * alert.threshold) {
         fill.classList.remove(warning.color);
         fill.classList.add(alert.color);
-    } else if (timeLeft <= TIME_LIMIT * warning.threshold) {
+    } else if (timeLeft <= timeLength * warning.threshold) {
         fill.classList.remove(info.color);
         fill.classList.add(warning.color);
     }
 }
 
 function setFill() {
-    const timeFraction = timeLeft / TIME_LIMIT;
-    root.style.setProperty("--fill", timeFraction - (1 / TIME_LIMIT) * (1 - timeFraction));
+    const timeFraction = timeLeft / timeLength;
+    root.style.setProperty("--fill", timeFraction - (1 / timeLength) * (1 - timeFraction));
 }
 
 function resetFill() {
